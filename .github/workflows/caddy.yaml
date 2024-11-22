@@ -12,7 +12,7 @@ jobs:
   docker-build-caddy-with-cloudflare-plugin:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: caddy
+      IMAGE_NAME: caddy-cf
       CADDY_URL: "https://caddyserver.com/api/download?os=linux&arch=amd64&p=github.com%2Fcaddy-dns%2Fcloudflare"
     steps:
       - uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
       - name: Get last updated date of Caddy binary
         run: |
           echo "CADDY_HASH=$(curl -sSL -D - '${{ env.CADDY_URL }}' -o /dev/null | \
-            grep last-modified | cut -d' ' -f 2- | sha1sum)" | tee -a $GITHUB_ENV
+            grep last-modified | cut -d' ' -f 2- | sha1sum | cut -d' ' -f1)" | tee -a $GITHUB_ENV
         shell: bash
       - name: Build and push
         uses: docker/build-push-action@v6
