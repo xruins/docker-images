@@ -35,9 +35,9 @@ jobs:
           context: ./caddy
           push: true
           platforms: linux/amd64,linux/arm64/v8
-          build-args:
-            CADDY_HASH: ${{ env.CADDY_HASH }}
-            CADDY_URL: ${{ env.CADDY_URL }}
+          build-args: |
+            CADDY_HASH=${{ env.CADDY_HASH }}
+            CADDY_URL=${{ env.CADDY_URL }}
           tags: |
             ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
             ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.CADDY_HASH }}
