@@ -12,7 +12,7 @@ jobs:
   docker-build-caddy-with-cloudflare-plugin:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
+      IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/caddy-cf
       CADDY_URL: "https://caddyserver.com/api/download?os=linux&arch=amd64&p=github.com%2Fcaddy-dns%2Fcloudflare"
     steps:
       - uses: actions/checkout@v4
