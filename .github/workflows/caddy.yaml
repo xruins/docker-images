@@ -29,7 +29,7 @@ jobs:
           export CADDY_HASH="$(curl -sSL -D - '${{ env.CADDY_URL }}' -o /dev/null | \
             grep last-modified | cut -d' ' -f 2- | sha1sum | cut -d' ' -f1)"
           echo "CADDY_HASH=${CADDY_HASH}" | tee -a $GITHUB_ENV
-          docker manifest inspect ${{ env.IMAGE_NAME}}:${CADDY_HASH})
+          docker manifest inspect ${{ env.IMAGE_NAME}}:${CADDY_HASH}
           echo "IMAGE_EXISTS=$? | tee -a $GITHUB_ENV"
         shell: bash
       - name: Build and push
