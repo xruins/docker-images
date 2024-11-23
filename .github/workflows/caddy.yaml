@@ -26,7 +26,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN  }}
       - name: Get last updated date of Caddy binary
         run: |
-          export CADDY_HASH="$(curl -sSL -D - '${{ env.CADDY_URL }}' -o /dev/null \
+          export CADDY_HASH="$(curl -sSL -D - '${{ env.CADDY_URL }}' -o /dev/null | \
             grep last-modified | cut -d' ' -f 2- | sha1sum | cut -d' ' -f1)"
           echo "CADDY_HASH=${CADDY_HASH}" | tee -a $GITHUB_ENV
           echo "IMAGE_EXISTS=$(docker manifest inspect ${{ env.IMAGE_NAME}}:${CADDY_HASH}) | tee -a $GITHUB_ENV
