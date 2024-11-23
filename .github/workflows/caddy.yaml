@@ -12,7 +12,7 @@ jobs:
   docker-build-caddy-with-cloudflare-plugin:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: caddy-cf
+      IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
       CADDY_URL: "https://caddyserver.com/api/download?os=linux&arch=amd64&p=github.com%2Fcaddy-dns%2Fcloudflare"
     steps:
       - uses: actions/checkout@v4
@@ -26,11 +26,14 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN  }}
       - name: Get last updated date of Caddy binary
         run: |
-          echo "CADDY_HASH=$(curl -sSL -D - '${{ env.CADDY_URL }}' -o /dev/null | \
-            grep last-modified | cut -d' ' -f 2- | sha1sum | cut -d' ' -f1)" | tee -a $GITHUB_ENV
+          export CADDY_HASH="$(curl -sSL -D - '${{ env.CADDY_URL }}' -o /dev/null \
+            grep last-modified | cut -d' ' -f 2- | sha1sum | cut -d' ' -f1)"
+          echo "CADDY_HASH=${CADDY_HASH}" | tee -a $GITHUB_ENV
+          echo "IMAGE_EXISTS=$(docker manifest inspect ${{ env.IMAGE_NAME}}:${CADDY_HASH}) | tee -a $GITHUB_ENV
         shell: bash
       - name: Build and push
         uses: docker/build-push-action@v6
+        if: ${{ env.IMAGE_EXISTS == '1' }}
         with:
           context: ./caddy
           push: true
@@ -39,5 +42,5 @@ jobs:
             CADDY_HASH=${{ env.CADDY_HASH }}
             CADDY_URL=${{ env.CADDY_URL }}
           tags: |
-            ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
-            ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.CADDY_HASH }}
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:${{ env.CADDY_HASH }}
