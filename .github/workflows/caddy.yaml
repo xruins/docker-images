@@ -29,13 +29,15 @@ jobs:
           export CADDY_HASH="$(curl -SL -D - '${{ env.CADDY_URL }}' -o /dev/null | \
             grep last-modified | cut -d' ' -f 2- | sha1sum | cut -d' ' -f1)"
           echo "CADDY_HASH=${CADDY_HASH}" | tee -a $GITHUB_ENV
-          docker manifest inspect ${{ env.IMAGE_NAME}}:${CADDY_HASH}
-          echo "IMAGE_EXISTS=$? | tee -a $GITHUB_ENV"
         shell: bash
+      - name: Check image existance
         continue-on-error: true
+        id: check_image_existance
+        run: docker manifest inspect ${{ env.IMAGE_NAME}}:${CADDY_HASH}
+        shell: bash
       - name: Build and push
         uses: docker/build-push-action@v6
-        if: ${{ env.IMAGE_EXISTS == '1' }}
+        if: ${{ steps.check_image_existance.outcome == 'failure' }}
         with:
           context: ./caddy
           push: true
