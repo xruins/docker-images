@@ -32,6 +32,7 @@ jobs:
           docker manifest inspect ${{ env.IMAGE_NAME}}:${CADDY_HASH}
           echo "IMAGE_EXISTS=$? | tee -a $GITHUB_ENV"
         shell: bash
+        continue-on-error: true
       - name: Build and push
         uses: docker/build-push-action@v6
         if: ${{ env.IMAGE_EXISTS == '1' }}
