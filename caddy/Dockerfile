@@ -6,3 +6,4 @@ RUN curl -o /home/curl_user/caddy -fsSL "${CADDY_URL}"
 
 FROM gcr.io/distroless/static-debian12:nonroot
 COPY --chmod=755 --from=fetch-stage /home/curl_user/caddy /bin/caddy
+LABEL org.opencontainers.image.source="https://github.com/xruins/docker-images"
