@@ -30,7 +30,7 @@ jobs:
             grep last-modified | cut -d' ' -f 2- | sha1sum | cut -d' ' -f1)"
           export CADDY_URL_HASH="$(echo ${{ env.CADDY_URL}} | sha1sum | cut -d' ' -f1)"
           export CADDY_HASH="$(echo ${CADDY_LAST_MODIFIED_HASH}_${CADDY_URL_HASH}\"  | sha1sum | cud -d' ' -f1)"
-          echo $CADDY_HASH | tee -a $GITHUB_ENV
+          echo "$CADDY_HASH" | tee -a $GITHUB_ENV
         shell: bash
       - name: Check image existance
         continue-on-error: true
