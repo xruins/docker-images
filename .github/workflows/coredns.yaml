@@ -1,4 +1,4 @@
-name: Build a docker image of Caddy with Cloudflare plugin
+name: Build a docker image of Coredns with plugins
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
     - cron: '0 5 * * *'
 
 jobs:
-  docker-build-caddy-with-cloudflare-plugin:
+  docker-build-coredns-with-plugins:
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/coredns
@@ -23,7 +23,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN  }}
-        shell: bash
       - name: Build and push
         uses: docker/build-push-action@v6
         if: ${{ env.IMAGE_EXISTS == '1' }}
