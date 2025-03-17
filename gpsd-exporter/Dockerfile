@@ -7,4 +7,4 @@ RUN git clone --depth=1 https://github.com/natesales/gpsd-exporter /src && \
 FROM gcr.io/distroless/static-debian12:nonroot
 
 COPY --from=builder --chmod=755 /gpsd-exporter /usr/local/bin/gpsd-exporter
-ENTRYPOINT ["gps-exporter"]
+ENTRYPOINT ["gpsd-exporter"]
