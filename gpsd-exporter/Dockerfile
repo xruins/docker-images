@@ -2,7 +2,7 @@ FROM golang AS builder
 
 WORKDIR /src
 RUN git clone --depth=1 https://github.com/natesales/gpsd-exporter /src && \
-    go build ldflags="-w -s" -o /gpsd-exporter
+    go build -ldflags="-w -s" -o /gpsd-exporter
 
 FROM gcr.io/distroless/static-debian12:nonroot
 
