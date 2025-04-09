@@ -1,19 +1,16 @@
-name: Build a docker image of Caddy with Cloudflare plugin
+name: Build a docker image of Caddy with plugins
 
 on:
   push:
     branches:
       - main
   workflow_dispatch:
-  schedule:
-    - cron: '0 5 * * *'
 
 jobs:
-  docker-build-caddy-with-cloudflare-plugin:
+  docker-build-coredns-with-plugins:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/caddy-cf
-      CADDY_URL: "https://caddyserver.com/api/download?os=linux&arch=amd64&p=github.com%2Fcaddy-dns%2Fcloudflare&p=github.com%2Fmholt%2Fcaddy-dynamicdns&p=github.com%2FWeidiDeng%2Fcaddy-cloudflare-ip&p=github.com%2Flucaslorentz%2Fcaddy-docker-proxy%2Fv2"
+      IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/caddy
     steps:
       - uses: actions/checkout@v4
       - name: Set up Docker Buildx
@@ -24,29 +21,11 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN  }}
-      - name: Get last updated date of Caddy binary
-        run: |
-          export CADDY_LAST_MODIFIED_HASH="$(curl -SL -D - '${{ env.CADDY_URL }}' -o /dev/null | \
-            grep last-modified | cut -d' ' -f 2- | sha1sum | cut -d' ' -f1)"
-          export CADDY_URL_HASH="$(echo ${{ env.CADDY_URL }} | sha1sum | cut -d' ' -f1)"
-          export CADDY_HASH="$(echo ${CADDY_LAST_MODIFIED_HASH}_${CADDY_URL_HASH}\"  | sha1sum | cut -d' ' -f1)"
-          echo "CADDY_HASH=${CADDY_HASH}" | tee -a $GITHUB_ENV
-        shell: bash
-      - name: Check image existance
-        continue-on-error: true
-        id: check_image_existance
-        run: docker manifest inspect ${{ env.IMAGE_NAME}}:${CADDY_HASH}
-        shell: bash
       - name: Build and push
         uses: docker/build-push-action@v6
-        if: ${{ steps.check_image_existance.outcome == 'failure' }}
         with:
-          context: ./caddy
+          context: ./coredns
           push: true
-          platforms: linux/amd64,linux/arm64/v8
-          build-args: |
-            CADDY_HASH=${{ env.CADDY_HASH }}
-            CADDY_URL=${{ env.CADDY_URL }}
+          platforms: linux/amd64,linux/arm64,linux/arm64/v8,linux/arm/v7
           tags: |
             ${{ env.IMAGE_NAME }}:latest
-            ${{ env.IMAGE_NAME }}:${{ env.CADDY_HASH }}
