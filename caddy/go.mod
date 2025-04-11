@@ -5,7 +5,7 @@ go 1.22.3
 toolchain go1.23.8
 
 require (
-	github.com/caddy-dns/cloudflare v0.0.0-20250228175314-1fb64108d4de
+	github.com/caddy-dns/cloudflare v0.1.0
 	github.com/caddyserver/caddy/v2 v2.9.1
 	github.com/gerolf-vent/caddy-vault-storage v1.2.0
 	github.com/mentimeter/caddy-storage-cf-kv v0.0.0-20250219160011-939ac14649ca
