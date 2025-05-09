@@ -24,5 +24,6 @@
   "gomod": {
     "enabled": true
   },
+  "labels": ["renovate", "dependencies"],
   "platformAutomerge": true
 }
