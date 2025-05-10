@@ -2,7 +2,7 @@ module github.com/xruins/docker-images/caddy
 
 go 1.24
 
-toolchain go1.24.1
+toolchain go1.24.3
 
 require (
 	github.com/caddy-dns/cloudflare v0.2.1
