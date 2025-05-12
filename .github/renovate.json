@@ -24,6 +24,9 @@
   "gomod": {
     "enabled": true
   },
+  "postUpdateOptions": [
+    "gomodTidy"
+  ],
   "labels": ["renovate", "dependencies"],
   "platformAutomerge": true
 }
