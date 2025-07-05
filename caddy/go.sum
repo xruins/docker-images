@@ -375,6 +375,8 @@ github.com/mholt/caddy-dynamicdns v0.0.0-20250430031602-b846b9e8fb83 h1:OLDtjeB6
 github.com/mholt/caddy-dynamicdns v0.0.0-20250430031602-b846b9e8fb83/go.mod h1:M4ewEwyvsXix5EkAfcNKe3kEJpHOILq7ARJegV4MIaw=
 github.com/mholt/caddy-l4 v0.0.0-20250530154005-4d3c80e89c5f h1:Q4tpZFV5i4uJZBdEUE9w6ULjHI8zVyeStU30D4LJUnY=
 github.com/mholt/caddy-l4 v0.0.0-20250530154005-4d3c80e89c5f/go.mod h1:zM0ViPIv7cMyGWqkSGXIXJpc1JjpanTKHhIsZQEKDLY=
+github.com/mholt/caddy-ratelimit v0.1.0 h1:73lOvdSLSoBGPT5l61nrTzh9liax+IDfXeQDtfzNcZ4=
+github.com/mholt/caddy-ratelimit v0.1.0/go.mod h1:smAiS3nAflvLDTiGNKUlPXG47Ke3bAiexcWWipVzvMY=
 github.com/microcosm-cc/bluemonday v1.0.1/go.mod h1:hsXNsILzKxV+sX77C5b8FSuKF00vh2OMYv+xgHpAMF4=
 github.com/miekg/dns v1.1.66 h1:FeZXOS3VCVsKnEAd+wBkjMC3D2K+ww66Cq3VnCINuJE=
 github.com/miekg/dns v1.1.66/go.mod h1:jGFzBsSNbJw6z1HYut1RKBKHA9PBdxeHrZG8J+gC2WE=

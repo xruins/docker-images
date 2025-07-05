@@ -11,6 +11,7 @@ require (
 	github.com/mentimeter/caddy-storage-cf-kv v0.0.0-20250219160011-939ac14649ca
 	github.com/mholt/caddy-dynamicdns v0.0.0-20250430031602-b846b9e8fb83
 	github.com/mholt/caddy-l4 v0.0.0-20250530154005-4d3c80e89c5f
+	github.com/mholt/caddy-ratelimit v0.1.0
 )
 
 require (

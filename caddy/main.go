@@ -10,6 +10,7 @@ import (
         _ "github.com/mentimeter/caddy-storage-cf-kv"
         _ "github.com/darkweak/storages/otter/caddy"
         _ "github.com/mholt/caddy-l4"
+        _ "github.com/mholt/caddy-ratelimit"
 )
 
 func main() {
