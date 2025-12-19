@@ -8,5 +8,3 @@ RUN apt-get update && \
         parallel \
         libavif-bin && \
     rm -rf /var/lib/apt/lists/*
-
-ENTRYPOINT ["cwebp"]
