@@ -6,7 +6,7 @@
   "enabledManagers": [
     "dockerfile",
     "gomod"
-  ]
+  ],
   "labels": ["renovate", "dependencies"],
   "platformAutomerge": true
 }
